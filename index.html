@@ -1,286 +1,979 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Mithun's Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mithun Ghosh | Machine Learning Scientist</title>
+  <meta name="description" content="Machine Learning Scientist with Ph.D. and 6+ years at Meta and Walmart Labs. Specialized in deep learning, LLMs, and scalable ML systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #060b18;
+      --bg2:     #0c1527;
+      --bg3:     #111e35;
+      --cyan:    #00d4ff;
+      --cyan2:   #0099cc;
+      --violet:  #7c3aed;
+      --violet2: #a78bfa;
+      --green:   #10b981;
+      --amber:   #f59e0b;
+      --red:     #ef4444;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --card:    rgba(12,21,39,0.85);
+      --border:  rgba(0,212,255,0.14);
+      --glow:    0 0 32px rgba(0,212,255,0.22);
+      --glow-v:  0 0 32px rgba(124,58,237,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color .2s; }
+    a:hover { color: #fff; }
+    ::selection { background: rgba(0,212,255,0.22); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan2); border-radius: 4px; }
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+    /* ─── NEURAL CANVAS ──────────────────────────────────── */
+    #neural-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: 0.4;
+    }
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>My Portfolio</h1>
-						<p>This is my showcase of my projects and my abilities</p>
-						<ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 5vw;
+      background: rgba(6,11,24,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.scrolled { box-shadow: 0 2px 40px rgba(0,0,0,.4); }
+    .nav-logo {
+      font-size: 1rem; font-weight: 800; letter-spacing: .3px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: .8rem; font-weight: 500; letter-spacing: .6px;
+      color: var(--muted); text-transform: uppercase;
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--cyan); transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      padding: .4rem 1rem; border: 1px solid var(--cyan); border-radius: 6px;
+      color: var(--cyan) !important; font-size: .78rem !important;
+      transition: background .2s, box-shadow .2s;
+    }
+    .nav-cta:hover { background: rgba(0,212,255,.1); box-shadow: var(--glow); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">About</a>
-					</header>
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 7rem 5vw 4rem;
+      text-align: center;
+    }
+    .hero-inner { max-width: 880px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(124,58,237,.14); border: 1px solid rgba(167,139,250,.35);
+      padding: .35rem 1.1rem; border-radius: 999px;
+      font-size: .74rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--violet2); margin-bottom: 1.5rem;
+      animation: fadeDown .6s ease both;
+    }
+    .hero-name {
+      font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px;
+      background: linear-gradient(140deg, #fff 20%, var(--cyan) 60%, var(--violet2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: fadeDown .6s .1s ease both;
+    }
+    .hero-title {
+      font-size: clamp(.95rem, 2.2vw, 1.3rem); font-weight: 400; color: var(--muted);
+      margin: .9rem 0 1.6rem; animation: fadeDown .6s .2s ease both;
+    }
+    .hero-title strong { color: var(--cyan); font-weight: 600; }
+    .hero-summary {
+      max-width: 660px; margin: 0 auto 2.5rem;
+      font-size: 1.05rem; color: #8fa8c8; line-height: 1.8;
+      animation: fadeDown .6s .3s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeDown .6s .35s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .72rem 1.7rem; border-radius: 8px;
+      font-weight: 600; font-size: .92rem; cursor: pointer; border: none;
+      transition: transform .22s, box-shadow .22s, background .22s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #fff; box-shadow: 0 4px 22px rgba(0,212,255,.28);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,255,.38); color: #fff; }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.15); color: var(--text);
+      background: rgba(255,255,255,.04);
+    }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,.05); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; justify-content: center; gap: clamp(1.5rem, 4vw, 3.5rem); flex-wrap: wrap;
+      margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      animation: fadeDown .6s .45s ease both;
+    }
+    .hero-stat .num {
+      font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, var(--cyan), var(--violet2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat .lbl { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: .2rem; }
+    .scroll-hint {
+      position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: var(--muted); font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .scroll-hint svg { width: 18px; height: 18px; }
 
-				<!-- Nav -->
-					<nav id="nav">
-	
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/mithun-ghosh-304107109/" class="icon brands fa-linkedin"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/Mithunprom/TimeSeriesForcasting" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-							<li><a href="mailto:mithunghosh404@gmail.com?subject=Email Subject&body=Contents of email" class="fa fa-circle fa-envelope"><span class="label"></span></a></li>
-						</ul>
-					</nav>
+    /* ─── SHARED SECTION ─────────────────────────────────── */
+    section { position: relative; z-index: 1; padding: 5.5rem 5vw; }
+    .container { max-width: 1120px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: .6rem;
+    }
+    .section-tag::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--cyan); }
+    .section-title { font-size: clamp(1.75rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -1px; margin-bottom: .75rem; }
+    .section-desc { color: var(--muted); max-width: 540px; margin-bottom: 3rem; }
 
-				<!-- Main -->
-					<div id="main">
+    /* ─── ABOUT ──────────────────────────────────────────── */
+    #about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: #8fa8c8; margin-bottom: .95rem; }
+    .about-text p em { color: var(--cyan); font-style: normal; font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.4rem; }
+    .chip {
+      padding: .3rem .85rem; border-radius: 999px;
+      font-size: .74rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--muted);
+      background: rgba(0,212,255,.04);
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .chip:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,.08); }
+    .metric-list { display: flex; flex-direction: column; gap: .85rem; }
+    .metric-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.1rem 1.35rem;
+      backdrop-filter: blur(10px); transition: border-color .3s, box-shadow .3s;
+    }
+    .metric-item:hover { border-color: var(--cyan); box-shadow: var(--glow); }
+    .metric-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .metric-top span:first-child { font-size: .82rem; font-weight: 600; color: var(--text); }
+    .metric-pct { font-size: 1rem; font-weight: 800; color: var(--cyan); font-family: 'JetBrains Mono', monospace; }
+    .bar { height: 3px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--cyan), var(--violet2)); width: 0; transition: width 1.5s cubic-bezier(.4,0,.2,1) .2s; }
 
-						<!-- Featured Post -->
-							<article class="post featured">
-								<header class="major">
-									<h2><a href="#">Mithun Ghosh</a></h2>
-									<p>I am currently doing my Ph.D. in Systems and Industrial Engineering at the University of Arizona and also doing a minor in 
-                                        Statistics. My research is concentrated on building machine learning models for real-world industrial applications by using statistical tools and techniques. I have experience in Apache Spark(PySpark) framework for big data analysis. I extensively worked with modeling framework related to regression, classification, and clustering. 
-                                         I have done several projects involving structured and unstructured data that includes text analysis and image classification using deep learning. I have also experience in anomaly detection, calibrating parameters of a nonlinear system, materials 
-                                         search in a large space for the capacitor, analyzing time-series model for the panel data, clustering the sensor networks and developed prognosis modeling for each cluster, etc. I have couple of internship experience and is open to work in a exciting projects. Feel free to contact me.
-</p>
-								</header>
-								<ul class="actions special">
-									<li><a href="#" class="button large">Full Story</a></li>
-								</ul>
-							</article>
-							<article >
-								<header>
-									<h2><a href="#">Education</a></h2>
-									</header>
-									<img class="image fit" src= "images/fig01.png"  style="position: relative;
-									bottom: 80px;
-									left: 0px;
-									width:200px;
-									height:300px;
-									float: right;"> 
-									
-									<ul>
-										<p>
+    /* ─── SKILLS ─────────────────────────────────────────── */
+    #skills { background: var(--bg2); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem 1.6rem;
+      backdrop-filter: blur(10px);
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .skill-card:hover { border-color: var(--cyan); transform: translateY(-4px); box-shadow: var(--glow); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: .75rem; }
+    .skill-card h3 { font-size: .9rem; font-weight: 700; margin-bottom: .6rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .skill-tag {
+      font-size: .68rem; font-weight: 600; padding: .2rem .6rem; border-radius: 5px;
+      background: rgba(255,255,255,.06); color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
 
-										</p>
-										<li>
-											<a class="fa fa-institution"> <span> </span></a> <a href="https://sie.engineering.arizona.edu/" style="color:blueviolet">The University of Arizona</a>                    
-											<br>Ph.D. in  Systems & Industrial Engineering
-											<br>Minor in Statistics	
-											<br>Graduation Date: May 2022 (Expected)
-										</li>
-										<p><p><p><p><p><p></p>
-										<li>
-											<a href="http://ipe.buet.ac.bd/" style="color:blueviolet">Bangladesh University of Engineering & Technology </a>
-											<br>Bachelor of Engineering, Industrial & Production Engineering
-											<br>Graduation Date: Sep 2015 		
-										</li>
+    /* ─── EXPERIENCE ─────────────────────────────────────── */
+    #experience { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
+    .timeline { position: relative; padding-left: 2.2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--cyan), var(--violet), rgba(0,0,0,0));
+    }
+    .tl-item { position: relative; margin-bottom: 2.5rem; }
+    .tl-dot {
+      position: absolute; left: -2.65rem; top: .4rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--cyan);
+      box-shadow: 0 0 12px rgba(0,212,255,.5);
+    }
+    .tl-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem 1.8rem;
+      backdrop-filter: blur(10px); transition: border-color .3s, box-shadow .3s;
+    }
+    .tl-card:hover { border-color: var(--cyan); box-shadow: var(--glow); }
+    .tl-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tl-company {
+      font-size: 1.15rem; font-weight: 800;
+      background: linear-gradient(90deg, var(--cyan), var(--violet2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .tl-role { font-size: .9rem; font-weight: 600; color: var(--text); margin-top: .1rem; }
+    .tl-period {
+      font-size: .75rem; font-weight: 600;
+      background: rgba(0,212,255,.09); border: 1px solid rgba(0,212,255,.2);
+      padding: .28rem .75rem; border-radius: 999px;
+      color: var(--cyan); white-space: nowrap; font-family: 'JetBrains Mono', monospace;
+    }
+    .tl-loc { font-size: .75rem; color: var(--muted); margin-top: .35rem; }
+    .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .tl-bullets li {
+      display: flex; align-items: flex-start; gap: .7rem;
+      font-size: .89rem; color: #8fa8c8;
+    }
+    .tl-bullets li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; margin-top: .1rem; }
+    .tl-bullets li strong { color: var(--text); }
+    .hl {
+      display: inline-block; padding: .05rem .42rem; border-radius: 4px;
+      font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: .86em;
+    }
+    .hl-c { background: rgba(0,212,255,.11); color: var(--cyan); }
+    .hl-g { background: rgba(16,185,129,.11); color: var(--green); }
+    .hl-a { background: rgba(245,158,11,.11); color: var(--amber); }
+    .hl-v { background: rgba(167,139,250,.11); color: var(--violet2); }
 
-									</ul>
-							</article>>
-							<article >
-								<header>
-									<h2><a href="https://github.com/Mithunprom/Mithunprom.github.io/blob/main/Resume_Mithunpub.pdf">Resume</a></h2>
-		
-									Click <a href="Resume_Mithunpub.pdf" class="fa fa-check-square">  </a> for my updated resume.
-							</article>
-							<article >
-								<header>
-									<h2><a href="#">Projects</a></h2>
-		
-									Below here is the list of the projects that I have done recently. 
-							</article>
+    /* ─── PROJECTS ───────────────────────────────────────── */
+    #projects { background: var(--bg); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.4rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem 1.6rem;
+      backdrop-filter: blur(10px); display: flex; flex-direction: column;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .project-card:hover { border-color: var(--violet2); transform: translateY(-4px); box-shadow: var(--glow-v); }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .85rem; }
+    .project-tag {
+      font-size: .65rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+      padding: .18rem .6rem; border-radius: 4px;
+      background: rgba(124,58,237,.15); color: var(--violet2); border: 1px solid rgba(167,139,250,.2);
+    }
+    .project-tag.green { background: rgba(16,185,129,.12); color: var(--green); border-color: rgba(16,185,129,.25); }
+    .project-tag.cyan  { background: rgba(0,212,255,.1);   color: var(--cyan);   border-color: rgba(0,212,255,.2); }
+    .project-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .6rem; line-height: 1.4; }
+    .project-card h3 a { color: var(--text); }
+    .project-card h3 a:hover { color: var(--cyan); }
+    .project-card p { font-size: .85rem; color: #8fa8c8; flex: 1; line-height: 1.65; margin-bottom: 1.1rem; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+      color: var(--violet2); border: 1px solid rgba(167,139,250,.25);
+      padding: .38rem .85rem; border-radius: 6px; align-self: flex-start;
+      transition: border-color .2s, background .2s, color .2s;
+    }
+    .project-link:hover { border-color: var(--violet2); background: rgba(167,139,250,.1); color: var(--violet2); }
+    .project-link svg { width: 13px; height: 13px; }
 
-						<!-- Posts -->
-						 
-							<section class="posts">
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Ensemble-Based-Neural-Network-for-theClassification-of-MURA-Dataset">Ensemble Based Neural Network for the Classification of MURA Dataset<br />
-										</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-									<p>An ensemble of Convolution Neural Network is used to classify the abnormal X-rays from the normal ones. 
-										X-ray images are hard to classify for any models. We used a complex version of CNN to build a classification model. 
-										The ensemble framework boosts the accuracy of the model as different CNN architecture helps detect the different types of bone fractures.
-									</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/Mithunprom/Ensemble-Based-Neural-Network-for-theClassification-of-MURA-Dataset" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Sentiment-Analysis-of-Tweet-Data-Using-BERT">Sentiment Analysis of Tweet Data Using BERT</h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-									<p>In this project, sentiment analysis of the tweet data is done by using Bidirectional Encoder 
-										Representations from Transformers (BERT). These tweets have multi-levels and multi classes. 
-										BERT is the state of the art method at the moment for the NLP. We added the output layer with a 
-										large vocabulary based pre-trained BERT model and then fine-tuned the model. The large case BERT 
-										is used in this project. The performance is better compared to other popular methods like 
-                                        RNN, LSTM, GRU.   
-									</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/Mithunprom/Sentiment-Analysis-of-Tweet-Data-Using-BERT" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Imbalaced-Class-classification-by-model-Ensembling-of-Machine-Learning-Algorithm"> Binary Classification for Imbalanced data by Machine Learning Model</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-									<p>A classification predictive model is created in this project with the response being whether the salary is in the top quartile or not. 
-                                        The dataset has the issue of an imbalanced class, meaning one class has very few data points compared to the other class. 
-                                        We used different techniques to handle the imbalanced class like using SMOTE or upsampling or downsampling or even taking into consideration of different evaluation matrices and choose the best one based on the performance. We fitted different types of machine 
-                                        learning models to get the best predictions. 
-                                        Also, we used different evaluation metrics like F1 scores, ROC-AUC to describe which model works best. </p>
-									<ul class="actions special"> 
-										<li><a href="https://github.com/Mithunprom/Imbalaced-Class-classification-by-model-Ensembling-of-Machine-Learning-Algorithm" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Determining-the-upvoting-or-downvoting-status-of-an-article-by-NLP-knowledge">Determining the status of upvoting or downvoting for an article with NLP knowledge</a></h2>
-									</header>
-									<a href="https://github.com/Mithunprom/Determining-the-upvoting-or-downvoting-status-of-an-article-by-NLP-knowledge" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-									<p>The dataset contains the article title along with the article writer and its number of upvotes or downvotes. 
-										We visualize the data in Tableau to find some important characteristics of this dataset. 
-										We then created a deep learning model to analyze the title of each article to determine the popularity. 
-										An embedding projector is also used to find similar words. </p>
-										<ul class="actions special"> 
-											<li><a href="https://github.com/Mithunprom/Determining-the-upvoting-or-downvoting-status-of-an-article-by-NLP-knowledge " class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Time-Series-Forcasting-of-the-Panel-Data">Time Series Forcasting of the Panel Data</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-									<p>The dataset is panel data where there are multiple time-series data for each user and each user have time-series data. The data is about an app where a user completes a set of missions to improve their health. 
-										The analysis contains cross-sectional and time-series variation which is analyzed. Also, there is time series forecasting model where we can do predictive analysis. 
-										here are two files for the dataset. One contains the relevant information of a set of missions completed by a specific user. 
-										If a user completes a set of goals that will mark a single mission completion. 
-										The second dataset contains data regarding the information of each goal completion by users.</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/Mithunprom/Time-Series-Forcasting-of-the-Panel-Data" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/Mithunprom/Credit-Card-Fraud-Detection-by-Machine-Learning">Credit Card Fraud Detection by Machine Learning<br />
-										primis vestibulum</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-									<p>It is important that credit card companies are able to recognize fraudulent credit card transactions so that customers are not charged for items that they did not purchase.
-										The datasets contains transactions made by credit cards in September 2013 by european cardholders. This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions. 
-										The dataset is highly unbalanced, the positive class (frauds) account for 0.172% of all transactions. the dataset is taken from the kaggle site.
-									</thead></p>
-									<ul class="actions special">
-										<li><a href="https://github.com/Mithunprom/Credit-Card-Fraud-Detection-by-Machine-Learning" class="button">Full Story</a></li>
-									</ul>
-								</article>
-							</section>
+    /* ─── PUBLICATIONS ───────────────────────────────────── */
+    #publications { background: var(--bg2); }
+    .pub-list { display: flex; flex-direction: column; gap: 1rem; }
+    .pub-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.3rem 1.6rem;
+      backdrop-filter: blur(10px);
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .pub-item:hover { border-color: var(--cyan); box-shadow: var(--glow); }
+    .pub-num {
+      font-size: .75rem; font-weight: 800; color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0,212,255,.1); border: 1px solid rgba(0,212,255,.2);
+      width: 2rem; height: 2rem; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: .1rem;
+    }
+    .pub-content { flex: 1; }
+    .pub-content a { font-size: .9rem; font-weight: 600; color: var(--text); line-height: 1.5; }
+    .pub-content a:hover { color: var(--cyan); }
+    .pub-venue { font-size: .78rem; color: var(--muted); margin-top: .3rem; }
 
-					<div style='font-size: large;font-weight: bold;'> Publications 
-					<section class="posts">
-						<ol>
-						<li><article>
-							<header>
-								<a style='color: royalblue;
-								text-decoration: none;' href="https://www.tandfonline.com/doi/abs/10.1080/24725854.2020.1798038"> Ghosh, Mithun, et al. "Modeling multivariate profiles using Gaussian process-controlled B-splines." IISE Transactions (2020): 1-12.
-								</a>
-							</header>
-								</li>	
-								
-						<li><article>
-							<header>
-								<a style='color:royalblue;
-								text-decoration: none;' href="https://orsociety.tandfonline.com/doi/abs/10.1080/17509653.2016.1255857#.X9vlhdhKhPY"> Ghosh, Mithun, Golam Kabir, and M. Ahsan Akhtar Hasin. "Project time–cost trade-off: a Bayesian approach to update project time and cost estimates." International Journal 
-									of Management Science and Engineering Management 12.3 (2017): 206-215.
-								</a>
-							</header>
-								</li>
+    /* ─── EDUCATION ──────────────────────────────────────── */
+    #education { background: var(--bg); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem 2rem; backdrop-filter: blur(10px);
+      position: relative; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .edu-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,212,255,.03), transparent);
+      pointer-events: none;
+    }
+    .edu-card:hover { border-color: var(--cyan); box-shadow: var(--glow); }
+    .edu-emoji { font-size: 2.4rem; margin-bottom: .8rem; }
+    .edu-degree { font-size: 1rem; font-weight: 700; margin-bottom: .25rem; }
+    .edu-field { font-size: .88rem; color: var(--cyan); font-weight: 600; margin-bottom: .5rem; }
+    .edu-school { font-size: .85rem; color: var(--muted); margin-bottom: .7rem; }
+    .edu-year {
+      font-size: .73rem; font-family: 'JetBrains Mono', monospace; color: var(--violet2);
+      background: rgba(124,58,237,.1); border: 1px solid rgba(167,139,250,.2);
+      padding: .22rem .7rem; border-radius: 999px; display: inline-block;
+    }
 
-							<li><article>
-								<header>
-									<a style='color: royalblue;
-									text-decoration: none;' href="http://www.espublisher.com/journals/articlehtml/es-materials-manufacturing/Machine-Learning-Prediction-for-Bandgaps-of-Inorganic-Materials"> Wu, Lang, et al. "Machine Learning Prediction for Bandgaps of Inorganic Materials." ES Materials & Manufacturing 9.2 (2020): 34-39.
-									</a>
-								</header>
-									</li>
-									<li><article>
-										<header>
-											<a style='color: royalblue;
-											text-decoration: none;' href="https://www.acapublishing.com/dosyalar/baski/JANSET_2021_222.pdf"> Ghosh, Mithun, et al. "Ensemble Based Neural Network for the Classification of MURA Dataset." Journal of Nature (2021): 4(1-5).
-											</a>
-										</header>
-											</li>
-											<li><article>
-												<header>
-													<a style='color: royalblue;
-													text-decoration: none;' href="https://arxiv.org/abs/2103.14871"> Ghosh, Mithun, et al. "Multivariate Gaussian Process Incorporated Predictive Model for Stream Turbine Power Plant
-". 
-													</a>
-												</header>
-													</li>
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact { background: var(--bg2); text-align: center; }
+    #contact .section-desc { margin: 0 auto 2.5rem; }
+    .contact-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .contact-card {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .85rem 1.6rem;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: rgba(255,255,255,.03); font-size: .88rem; font-weight: 600;
+      color: var(--text); transition: border-color .25s, background .25s, transform .25s, box-shadow .25s;
+    }
+    .contact-card:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,.06); transform: translateY(-2px); box-shadow: var(--glow); }
+    .contact-card svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-						</article>
-					</ol>
-					</div>
-					</div>
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1; text-align: center;
+      padding: 1.75rem 5vw; border-top: 1px solid var(--border);
+      font-size: .78rem; color: var(--muted);
+    }
+    footer span { color: var(--cyan); }
 
-				<!-- Footer -->
-					<footer id="footer">
+    /* ─── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: .4; }
+    }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s, transform .6s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
 
-						<section class="split contact">
-							<section class="alt">
-								<h3>Address</h3>
-								<p>951 E 10th street #9<br />
-								Tucson, AZ 85719</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">(520) 247-5305</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">mithunghosh404@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/mithun-ghosh-304107109/" class="icon brands alt fa-linkedin"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/Mithunprom" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="mailto:mithunghosh404@gmail.com?subject=Email Subject&body=Contents of email" class="fa fa-circle fa-envelope"><span class="label"></span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 840px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: fixed; inset: 0;
+        background: rgba(6,11,24,.97); backdrop-filter: blur(20px);
+        justify-content: center; align-items: center; gap: 2.2rem; z-index: 99;
+      }
+      .nav-links.open a { font-size: 1.1rem; }
+      .hamburger { display: flex; z-index: 101; }
+      .about-grid  { grid-template-columns: 1fr; }
+      .edu-grid    { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .tl-head { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
 
-				<!-- Copyright -->
-					
+<canvas id="neural-canvas"></canvas>
 
-			</div>
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-logo">Mithun Ghosh</div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">&#11042; Machine Learning Scientist &nbsp;·&nbsp; Ph.D.</div>
+    <h1 class="hero-name">Mithun Ghosh</h1>
+    <p class="hero-title">
+      <strong>Meta</strong> &nbsp;·&nbsp; Walmart Labs &nbsp;·&nbsp;
+      Deep Learning · LLMs · Scalable ML Systems
+    </p>
+    <p class="hero-summary">
+      Building production ML at scale — from Transformer-based forecasting and Foundation Model fine-tuning
+      to recommendation systems driving revenue across billions of ad auctions.
+    </p>
+    <div class="hero-btns">
+      <a href="#experience" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        Experience
+      </a>
+      <a href="Resume_Mithunpub.pdf" target="_blank" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Download CV
+      </a>
+      <a href="https://www.linkedin.com/in/mithun-ghosh-304107109/" target="_blank" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num" data-target="6" data-suffix="+">0</div><div class="lbl">Years Industry Exp.</div></div>
+      <div class="hero-stat"><div class="num" data-target="60" data-suffix="%">0%</div><div class="lbl">Inference Time ↓</div></div>
+      <div class="hero-stat"><div class="num" data-target="30" data-suffix="%">0%</div><div class="lbl">MAPE Reduced</div></div>
+      <div class="hero-stat"><div class="num" data-target="15" data-suffix="%">0%</div><div class="lbl">Revenue Lifted</div></div>
+      <div class="hero-stat"><div class="num" data-target="85" data-suffix="%">0%</div><div class="lbl">Model Accuracy</div></div>
+      <div class="hero-stat"><div class="num" data-target="5" data-suffix="">0</div><div class="lbl">Publications</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg>
+    Scroll
+  </div>
+</section>
 
-	</body>
+<!-- ── ABOUT ─────────────────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">ML Scientist.<br/>Industry &amp; Research.</h2>
+        <p>I'm a <em>Machine Learning Scientist with a Ph.D.</em> from the University of Arizona, with
+          <em>6+ years of industry experience</em> at Meta and Walmart Labs building and shipping
+          large-scale ML systems.</p>
+        <p>My work spans <em>deep learning model development</em>, Foundation Model fine-tuning,
+          Transformer-based time series forecasting, auction-based recommendation systems, and
+          operational ML — handling billions of data points daily in production.</p>
+        <p>I bridge the gap between cutting-edge research and <em>real business impact</em>: cutting
+          inference costs, lifting revenue, and accelerating model iteration across some of the
+          world's largest technology companies.</p>
+        <div class="chips">
+          <span class="chip">Deep Learning</span>
+          <span class="chip">Foundation Models</span>
+          <span class="chip">Time Series</span>
+          <span class="chip">RecSys</span>
+          <span class="chip">Bayesian ML</span>
+          <span class="chip">Optimization</span>
+          <span class="chip">Computer Vision</span>
+          <span class="chip">NLP / BERT</span>
+          <span class="chip">Anomaly Detection</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="metric-list">
+          <div class="metric-item">
+            <div class="metric-top"><span>XGBoost — Proposal Stage Prediction</span><span class="metric-pct">85%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="85"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-top"><span>Bayesian GP — Anomaly Detection</span><span class="metric-pct">92%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="92"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-top"><span>Transformer — MAPE Reduction</span><span class="metric-pct">30%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="30"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-top"><span>Few-Shot LLM — Inference Speedup</span><span class="metric-pct">60%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="60"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-top"><span>DeepFM — Revenue Uplift</span><span class="metric-pct">15%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="15"></div></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-top"><span>AI Tool Productivity Lift</span><span class="metric-pct">25%</span></div>
+            <div class="bar"><div class="bar-fill" data-w="25"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="section-tag">Tech Stack</div>
+      <h2 class="section-title">Tools &amp; Technologies</h2>
+      <p class="section-desc">A full-spectrum ML toolkit — from model development to cloud deployment and big-data pipelines.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🐍</div>
+        <h3>Languages</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">R</span>
+          <span class="skill-tag">Java</span><span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🧠</div>
+        <h3>ML / Deep Learning</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">XGBoost</span><span class="skill-tag">scikit-learn</span>
+          <span class="skill-tag">DeepFM</span><span class="skill-tag">CNNs</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🤖</div>
+        <h3>LLMs &amp; Foundation Models</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Transformers</span><span class="skill-tag">BERT</span>
+          <span class="skill-tag">TinyTimeMixture</span><span class="skill-tag">Lag-Llama</span>
+          <span class="skill-tag">Few-Shot</span><span class="skill-tag">Fine-Tuning</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">☁️</div>
+        <h3>Cloud &amp; Infra</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">GCP</span><span class="skill-tag">AWS</span>
+          <span class="skill-tag">BigQuery</span><span class="skill-tag">Vertex AI</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">⚡</div>
+        <h3>Big Data &amp; Databases</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">PySpark</span><span class="skill-tag">Hive</span>
+          <span class="skill-tag">MySQL</span><span class="skill-tag">MSSQL</span>
+          <span class="skill-tag">BigQuery</span><span class="skill-tag">Power BI</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div>
+        <h3>Domains</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Time Series</span><span class="skill-tag">RecSys</span>
+          <span class="skill-tag">Computer Vision</span><span class="skill-tag">NLP</span>
+          <span class="skill-tag">Optimization</span><span class="skill-tag">Bayesian</span>
+          <span class="skill-tag">Anomaly Detection</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ────────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:3rem">
+      <div class="section-tag">Career</div>
+      <h2 class="section-title">Professional Experience</h2>
+      <p class="section-desc">Production ML systems serving millions of users at FAANG and top-tier tech.</p>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <div>
+              <div class="tl-company">Meta</div>
+              <div class="tl-role">Senior Data Scientist</div>
+            </div>
+            <div>
+              <div class="tl-period">Feb 2025 – Present</div>
+              <div class="tl-loc">📍 Menlo Park, CA</div>
+            </div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Forecasted adoption metrics for AI tools using ML and statistical models, driving productivity up by <span class="hl hl-c">+25%</span>.</li>
+            <li>Built an <strong>XGBoost</strong> model to predict proposal stage progression to production with <span class="hl hl-g">85% accuracy</span>.</li>
+            <li>Designed methodology for <strong>ML model ROI estimation</strong> and operational cost savings to set and track ROI progress across AI initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <div>
+              <div class="tl-company">Walmart Labs</div>
+              <div class="tl-role">Senior Data Scientist</div>
+            </div>
+            <div>
+              <div class="tl-period">May 2022 – Feb 2025</div>
+              <div class="tl-loc">📍 Sunnyvale, CA</div>
+            </div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Reduced MAPE by <span class="hl hl-c">30%</span> using <strong>Transformer-based</strong> models for time series demand forecasting.</li>
+            <li>Applied few-shot learning on Foundation Models (<strong>TinyTimeMixture, Lag-Llama</strong>), cutting inference time by <span class="hl hl-g">60%</span>.</li>
+            <li>Improved revenue by <span class="hl hl-a">+15%</span> by deploying <strong>DeepFM</strong> for auction-based recommendation systems.</li>
+            <li>Built and deployed a dynamic floor pricing <strong>optimization framework</strong>, boosting ad display by <span class="hl hl-v">+5%</span>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <div>
+              <div class="tl-company">Lumen Technologies</div>
+              <div class="tl-role">Data Science Intern</div>
+            </div>
+            <div>
+              <div class="tl-period">Jun – Aug 2021</div>
+              <div class="tl-loc">📍 Broomfield, CO</div>
+            </div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Developed scalable forecasting tools to optimize headcount allocation across business units.</li>
+            <li>Automated <strong>SQL + Power BI</strong> pipelines for workforce analytics and product line reporting.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <div>
+              <div class="tl-company">University of Arizona</div>
+              <div class="tl-role">Graduate Research Assistant</div>
+            </div>
+            <div>
+              <div class="tl-period">Aug 2017 – May 2022</div>
+              <div class="tl-loc">📍 Tucson, AZ</div>
+            </div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Built <strong>Bayesian Gaussian Process</strong> model for anomaly detection achieving <span class="hl hl-g">92% accuracy</span>.</li>
+            <li>Applied <strong>CNNs</strong> for X-ray image classification, accelerating medical image triage.</li>
+            <li>Developed <strong>NLP-based</strong> sentiment analysis model with <span class="hl hl-c">+9%</span> improvement over SOTA benchmarks.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ───────────────────────────────────────────── -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="section-tag">Work</div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-desc">Applied ML projects spanning computer vision, NLP, time series, and recommendation systems.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag">Deep Learning</span><span class="project-tag cyan">Computer Vision</span></div>
+        <h3><a href="https://github.com/Mithunprom/Ensemble-Based-Neural-Network-for-theClassification-of-MURA-Dataset" target="_blank">Ensemble CNN for MURA X-Ray Classification</a></h3>
+        <p>Ensemble of CNN architectures to classify abnormal vs. normal X-rays from the MURA musculoskeletal dataset. Different CNN backbones detect diverse fracture types, boosting ensemble accuracy over single models.</p>
+        <a href="https://github.com/Mithunprom/Ensemble-Based-Neural-Network-for-theClassification-of-MURA-Dataset" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag">NLP</span><span class="project-tag cyan">BERT</span></div>
+        <h3><a href="https://github.com/Mithunprom/Sentiment-Analysis-of-Tweet-Data-Using-BERT" target="_blank">Sentiment Analysis of Tweet Data Using BERT</a></h3>
+        <p>Multi-class sentiment analysis of tweet data using fine-tuned large-case BERT. Outperforms RNN, LSTM, and GRU baselines, demonstrating the power of Transformer-based pre-training for NLP tasks.</p>
+        <a href="https://github.com/Mithunprom/Sentiment-Analysis-of-Tweet-Data-Using-BERT" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag green">Time Series</span><span class="project-tag">Forecasting</span></div>
+        <h3><a href="https://github.com/Mithunprom/Time-Series-Forcasting-of-the-Panel-Data" target="_blank">Time Series Forecasting of Panel Data</a></h3>
+        <p>Panel data forecasting with cross-sectional and temporal variation. Predictive models for user mission-completion in a health app — combining time-series and cross-sectional analysis techniques.</p>
+        <a href="https://github.com/Mithunprom/Time-Series-Forcasting-of-the-Panel-Data" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag">NLP</span><span class="project-tag green">Deep Learning</span></div>
+        <h3><a href="https://github.com/Mithunprom/Determining-the-upvoting-or-downvoting-status-of-an-article-by-NLP-knowledge" target="_blank">Article Popularity Prediction via NLP</a></h3>
+        <p>Deep learning model using embedding projectors to predict article upvote/downvote status from title text. Includes Tableau visualizations to surface key dataset characteristics.</p>
+        <a href="https://github.com/Mithunprom/Determining-the-upvoting-or-downvoting-status-of-an-article-by-NLP-knowledge" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag">ML</span><span class="project-tag cyan">Classification</span></div>
+        <h3><a href="https://github.com/Mithunprom/Imbalaced-Class-classification-by-model-Ensembling-of-Machine-Learning-Algorithm" target="_blank">Imbalanced Class Classification via Ensembling</a></h3>
+        <p>Salary quartile classification on highly imbalanced data. Explored SMOTE, up/downsampling, and ensemble ML models. Evaluated via F1 and ROC-AUC to select the best-performing approach.</p>
+        <a href="https://github.com/Mithunprom/Imbalaced-Class-classification-by-model-Ensembling-of-Machine-Learning-Algorithm" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tags"><span class="project-tag green">Fraud Detection</span><span class="project-tag">ML</span></div>
+        <h3><a href="https://github.com/Mithunprom/Credit-Card-Fraud-Detection-by-Machine-Learning" target="_blank">Credit Card Fraud Detection</a></h3>
+        <p>ML solution for detecting fraudulent credit card transactions on a highly imbalanced dataset (0.17% fraud rate). Handles class imbalance with appropriate evaluation metrics and model selection.</p>
+        <a href="https://github.com/Mithunprom/Credit-Card-Fraud-Detection-by-Machine-Learning" target="_blank" class="project-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PUBLICATIONS ───────────────────────────────────────── -->
+<section id="publications">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.8rem">
+      <div class="section-tag">Research</div>
+      <h2 class="section-title">Publications</h2>
+      <p class="section-desc">Peer-reviewed research in applied ML, Bayesian methods, and industrial engineering.</p>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item reveal">
+        <div class="pub-num">01</div>
+        <div class="pub-content">
+          <a href="https://www.tandfonline.com/doi/abs/10.1080/24725854.2020.1798038" target="_blank">
+            Ghosh, Mithun, et al. "Modeling multivariate profiles using Gaussian process-controlled B-splines."
+          </a>
+          <div class="pub-venue">IISE Transactions, 2020</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-num">02</div>
+        <div class="pub-content">
+          <a href="https://www.acapublishing.com/dosyalar/baski/JANSET_2021_222.pdf" target="_blank">
+            Ghosh, Mithun, et al. "Ensemble Based Neural Network for the Classification of MURA Dataset."
+          </a>
+          <div class="pub-venue">Journal of Nature, 4(1–5), 2021</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-num">03</div>
+        <div class="pub-content">
+          <a href="https://arxiv.org/abs/2103.14871" target="_blank">
+            Ghosh, Mithun, et al. "Multivariate Gaussian Process Incorporated Predictive Model for Stream Turbine Power Plant."
+          </a>
+          <div class="pub-venue">arXiv:2103.14871, 2021</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-num">04</div>
+        <div class="pub-content">
+          <a href="http://www.espublisher.com/journals/articlehtml/es-materials-manufacturing/Machine-Learning-Prediction-for-Bandgaps-of-Inorganic-Materials" target="_blank">
+            Wu, Lang, et al. "Machine Learning Prediction for Bandgaps of Inorganic Materials."
+          </a>
+          <div class="pub-venue">ES Materials &amp; Manufacturing, 9.2, 2020</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal">
+        <div class="pub-num">05</div>
+        <div class="pub-content">
+          <a href="https://orsociety.tandfonline.com/doi/abs/10.1080/17509653.2016.1255857" target="_blank">
+            Ghosh, Mithun, Golam Kabir, and M. Ahsan Akhtar Hasin. "Project time–cost trade-off: a Bayesian approach to update project time and cost estimates."
+          </a>
+          <div class="pub-venue">International Journal of Management Science and Engineering Management, 12(3), 2017</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ─────────────────────────────────────────── -->
+<section id="education">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.5rem">
+      <div class="section-tag">Education</div>
+      <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-emoji">🎓</div>
+        <div class="edu-degree">Doctor of Philosophy</div>
+        <div class="edu-field">Systems &amp; Industrial Engineering</div>
+        <div class="edu-school">The University of Arizona · Tucson, AZ</div>
+        <div class="edu-year">May 2022</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-emoji">🏛️</div>
+        <div class="edu-degree">Bachelor of Engineering</div>
+        <div class="edu-field">Industrial &amp; Production Engineering</div>
+        <div class="edu-school">Bangladesh University of Engineering &amp; Technology</div>
+        <div class="edu-year">September 2015</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag" style="justify-content:center">Let's Talk</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-desc">Open to senior MLE roles, applied ML research collaborations, and speaking on ML at scale.</p>
+      <div class="contact-grid">
+        <a href="mailto:mithunghosh404@gmail.com" class="contact-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+          mithunghosh404@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/mithun-ghosh-304107109/" target="_blank" class="contact-card">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/mithunprom" target="_blank" class="contact-card">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          github.com/mithunprom
+        </a>
+        <a href="tel:5202475305" class="contact-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.13 1 .39 1.98.75 2.92a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.16-1.16a2 2 0 012.11-.45c.94.36 1.92.62 2.92.75A2 2 0 0122 14.92z"/></svg>
+          (520) 247-5305
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Mithun Ghosh</span> &nbsp;·&nbsp; Machine Learning Scientist</p>
+</footer>
+
+<script>
+/* ── Neural Network Canvas ───────────────────────── */
+(function () {
+  const cv = document.getElementById('neural-canvas');
+  const cx = cv.getContext('2d');
+  const N = 65, DIST = 165;
+  let W, H, pts;
+
+  function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+  function init() {
+    pts = Array.from({ length: N }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .42, vy: (Math.random() - .5) * .42,
+      r: Math.random() * 1.8 + 1,
+    }));
+  }
+  function frame() {
+    cx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    });
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const d = Math.hypot(dx, dy);
+        if (d < DIST) {
+          const a = 1 - d / DIST;
+          cx.beginPath();
+          cx.moveTo(pts[i].x, pts[i].y);
+          cx.lineTo(pts[j].x, pts[j].y);
+          cx.strokeStyle = `rgba(0,212,255,${a * .32})`;
+          cx.lineWidth = a * 1.1;
+          cx.stroke();
+        }
+      }
+    }
+    pts.forEach(p => {
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      cx.fillStyle = 'rgba(0,212,255,.65)'; cx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize', () => { resize(); init(); });
+  resize(); init(); frame();
+})();
+
+/* ── Nav scroll ──────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+});
+
+/* ── Mobile menu ─────────────────────────────────── */
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+document.getElementById('nav-links').querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'))
+);
+
+/* ── Reveal on scroll ────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    // Trigger bar fills
+    e.target.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+    revealObs.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── Counter animation ───────────────────────────── */
+function runCounters() {
+  document.querySelectorAll('.num[data-target]').forEach(el => {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    let cur = 0;
+    const step = target / 55;
+    const tick = () => {
+      cur = Math.min(cur + step, target);
+      el.textContent = Math.round(cur) + suffix;
+      if (cur < target) requestAnimationFrame(tick);
+    };
+    tick();
+  });
+}
+const heroObs = new IntersectionObserver(e => {
+  if (e[0].isIntersecting) { runCounters(); heroObs.disconnect(); }
+}, { threshold: .25 });
+heroObs.observe(document.getElementById('hero'));
+</script>
+</body>
 </html>
